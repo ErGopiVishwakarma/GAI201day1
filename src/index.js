@@ -1,6 +1,7 @@
 const express = require('express');
 const OpenAI = require("openai");
-const cors=require("cors")
+const cors=require("cors");
+const codeRouter = require('./route');
 require("dotenv").config();
 
 
@@ -14,8 +15,9 @@ const openai = new OpenAI({apiKey:process.env.OPENAI_API_KEY})
 app.get("/",(req,res)=>{
   res.send("hello")
 })
-
-
+// code convertor route 
+app.use('/code',codeRouter)
+// generating random quote 
 app.post("/",async (req,res)=>{
   const {topic,wantTo} = req.body
   console.log(req.body)
